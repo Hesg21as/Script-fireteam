@@ -16,6 +16,20 @@ https://github.com/GhostDuckyy/UI-Libraries/tree/main/Mercury-lib
 
 ]]
 
+-- Base service
+
+local Plrs = game:GetService("Players")
+local Run = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
+local StartGui = game:GetService("StarterGui")
+local Teams = game:GetService("Teams")
+local UserInput = game:GetService("UserInputService")
+local Light = game:GetService("Lighting")
+local HTTP = game:GetService("HttpService")
+local RepStor = game:GetService("ReplicatedStorage")
+
+
+
 --Base gui
 
 
@@ -24,9 +38,9 @@ local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeei
 
 local GUI = Mercury:Create{
     Name = "Fire Team SOFT(ZV)",
-    Size = UDim2.fromOffset(500, 350),
-    Theme = Mercury.Themes.Aqua,
-    Link = "https://github.com/deeeity/mercury-lib"
+    Size = UDim2.fromOffset(600, 450),
+    Theme = Mercury.Themes.Serika,
+    Link = "https://github.com/script fire-team/main"
 }
 
 --[[ 
@@ -129,6 +143,67 @@ getgenv(ShowBox).ShowBox = state
 getgenv(ShowHealth).ShowHealth = state
 wait(0.3)
    end
+}
+
+--[[
+
+speed
+
+]]
+
+
+ldm:Slider{
+	Name = "Speed",
+	Default = 16,
+	Min = 0,
+	Max = 350,
+	Callback = function(nmeq)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = nmeq
+     end
+}
+
+
+
+--[[
+
+fullbright
+
+]]
+
+
+ldm:Button{
+	Name = "Fullbright",
+    StartingState = false,
+	Description = nil,
+	Callback = function(gkem)
+pcall(function(gkem)
+	local lighting = game:GetService("Lighting");
+	lighting.Ambient = Color3.fromRGB(255, 255, 255);
+	lighting.Brightness = 1;
+	lighting.FogEnd = 1e10;
+	for i, v in pairs(lighting:GetDescendants()) do
+		if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") then
+			v.Enabled = false;
+		end;
+	end;
+	lighting.Changed:Connect(function()
+		lighting.Ambient = Color3.fromRGB(255, 255, 255);
+		lighting.Brightness = 1;
+		lighting.FogEnd = 1e10;
+	end);
+	spawn(function(gkem)
+		local character = game:GetService("Players").LocalPlayer.Character;
+		while wait() do
+			repeat wait() until character ~= nil;
+			if not character.HumanoidRootPart:FindFirstChildWhichIsA("PointLight") then
+				local headlight = Instance.new("PointLight", character.HumanoidRootPart);
+				headlight.Brightness = 1;
+				headlight.Range = 60;
+			end;
+		end;
+	end);
+end)
+     end
 }
 
 
