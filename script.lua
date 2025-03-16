@@ -16,7 +16,7 @@ https://github.com/GhostDuckyy/UI-Libraries/tree/main/Mercury-lib
 
 ]]
 
---базы гуи
+--Base gui
 
 
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
@@ -30,7 +30,7 @@ local GUI = Mercury:Create{
 }
 
 --[[ 
-первая хуйня 
+First hyina
 ]]
 
 local ldm = GUI:Tab{
@@ -38,15 +38,16 @@ local ldm = GUI:Tab{
 	Icon = "rbxassetid://8569322835"
 }
 
-ldm:Button{
-	Name = "Esp",
-	Description = nil,
-	Callback = function()
-    -- такая вот хуйня
 
-getgenv().ESPEnabled = true -- Toggle ESP On/Off
-getgenv().ShowBox = true -- Show bounding boxes
-getgenv().ShowHealth = true -- Show health
+ldm:Toggle{
+	Name = "Esp",
+	StartingState = false,
+	Description = nil,
+	Callback = function(state)
+    --Oke based
+getgenv().ESPEnabled = false -- Toggle ESP On/Off
+getgenv().ShowBox = false -- Show bounding boxes
+getgenv().ShowHealth = false -- Show health
 
         -- Roblox Services
 local Players = game:GetService("Players")
@@ -58,7 +59,7 @@ local LocalPlayer = Players.LocalPlayer
 local function createESP(player)
     local box = Drawing.new("Square")
     box.Visible = false
-    box.Color = Color3.new(0, 0, 1)
+    box.Color = Color3.new(1, 1, 1)
     box.Thickness = 0.5
     box.Filled = false
 
@@ -123,8 +124,14 @@ Players.PlayerAdded:Connect(function(player)
         createESP(player)
     end
 end)
-    end
+getgenv(ESPEnabled).ESPEnabled = state
+getgenv(ShowBox).ShowBox = state
+getgenv(ShowHealth).ShowHealth = state
+wait(0.3)
+   end
 }
+
+
 
 
 
@@ -142,3 +149,4 @@ GUI:Credit{
 	V3rm = "None",
 	Discord = "None"
 }
+
