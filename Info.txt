@@ -1,0 +1,1 @@
+This script already has basic functions, you can add an aimbot or something else.
