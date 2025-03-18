@@ -52,13 +52,17 @@ local ldm = GUI:Tab{
 	Icon = "rbxassetid://8569322835"
 }
 
-
-ldm:Toggle{
+local zdl = GUI:Tab{
 	Name = "Esp",
-	StartingState = false,
-	Description = nil,
-	Callback = function(state)
-    --Oke based
+	Icon = "rbxassetid://8569322835"
+}
+
+
+--[[ 
+скриптик вх 
+]]
+
+
 getgenv().ESPEnabled = false -- Toggle ESP On/Off
 getgenv().ShowBox = false -- Show bounding boxes
 getgenv().ShowHealth = false -- Show health
@@ -138,117 +142,48 @@ Players.PlayerAdded:Connect(function(player)
         createESP(player)
     end
 end)
-getgenv(ESPEnabled).ESPEnabled = state
-getgenv(ShowBox).ShowBox = state
-getgenv(ShowHealth).ShowHealth = state
-wait(0.3)
-   end
-}
 
 
---[[
-
-кнопка для аима
-
-ldm:Toggle{
-	Name = "Silent aim",
+zdl:Toggle{
+	Name = "Esp Enabled",
 	StartingState = false,
 	Description = nil,
-	Callback = function(state)
-    
+	Callback = function(state) 
+        getgenv().ESPEnabled = state
     end
 }
 
-]]
-
-
-
---[[
-
-speed
-
-]]
-
-
-ldm:Slider{
-	Name = "Speed",
-	Default = 16,
-	Min = 0,
-	Max = 350,
-	Callback = function(nmeq)
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = nmeq
-     end
-}
-
-
-
-
-
---[[
-
-fullbright
-
-]]
-
-
-ldm:Button{
-	Name = "Fullbright",
+zdl:Toggle{
+    Name = "Show Box",
     StartingState = false,
+    Description = nil,
+    Callback = function(state)
+        getgenv().ShowBox = state
+    end
+}
+
+
+zdl:Toggle{
+    Name = "Show Health",
+    StartingState = false,
+    Description = nil,
+    Callback = function(state)
+        getgenv().ShowHealth = state
+    end
+}
+
+local Aimgnr = GUI:Tab{
+	Name = "Silent Aimbot(NEED CHECK)",
+	Icon = "rbxassetid://8569322835"
+}
+
+
+Aimgnr:Toggle{
+	Name = "Silent aim(NEED CHECK)",
+	StartingState = false,
 	Description = nil,
-	Callback = function(gkem)
-pcall(function(gkem)
-	local lighting = game:GetService("Lighting");
-	lighting.Ambient = Color3.fromRGB(255, 255, 255);
-	lighting.Brightness = 1;
-	lighting.FogEnd = 1e10;
-	for i, v in pairs(lighting:GetDescendants()) do
-		if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") then
-			v.Enabled = false;
-		end;
-	end;
-	lighting.Changed:Connect(function()
-		lighting.Ambient = Color3.fromRGB(255, 255, 255);
-		lighting.Brightness = 1;
-		lighting.FogEnd = 1e10;
-	end);
-	spawn(function(gkem)
-		local character = game:GetService("Players").LocalPlayer.Character;
-		while wait() do
-			repeat wait() until character ~= nil;
-			if not character.HumanoidRootPart:FindFirstChildWhichIsA("PointLight") then
-				local headlight = Instance.new("PointLight", character.HumanoidRootPart);
-				headlight.Brightness = 1;
-				headlight.Range = 60;
-			end;
-		end;
-	end);
-end)
-     end
-}
-
-
-
-
-
-
-
---[[
-
-крендель
-
-]]
-
-GUI:Credit{
-	Name = "brenton tarrent",
-	Description = "15.03.25",
-	V3rm = "None",
-	Discord = "None"
-}
-
---[[
-
-будущий аим мб
-
+	Callback = function(yaebal)
+        --ladno
 
 local Aiming = loadstring(game:HttpGet("https://pastebin.com/raw/fKyW0Wfx"))()
 Aiming.TeamCheck(false)
@@ -328,7 +263,106 @@ RunService:BindToRenderStep("AimLock", 0, function()
         CurrentCamera.CFrame = CFrame.lookAt(CurrentCamera.CFrame.Position, Hit.Position)
     end
 
+    end)
+end
+}
+
+
+
+
+--[[
+
+speed
+
 ]]
+
+
+
+
+
+ldm:Slider{
+	Name = "Speed power",
+	Default = 16,
+	Min = 0,
+	Max = 350,
+	Callback = function(nmeq)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = nmeq
+     end
+}
+
+ldm:Slider{
+    Name = "Gravity power",
+    Min = 0,
+    Max = 350,
+    Callback = function(gravitacia)
+        game.workspace.Gravity = gravitacia
+    end
+}
+
+
+
+
+
+--[[
+
+fullbright
+
+]]
+
+
+ldm:Button{
+	Name = "Fullbright",
+    StartingState = false,
+	Description = nil,
+	Callback = function(gkem)
+pcall(function(gkem)
+	local lighting = game:GetService("Lighting");
+	lighting.Ambient = Color3.fromRGB(255, 255, 255);
+	lighting.Brightness = 1;
+	lighting.FogEnd = 1e10;
+	for i, v in pairs(lighting:GetDescendants()) do
+		if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") then
+			v.Enabled = false;
+		end;
+	end;
+	lighting.Changed:Connect(function()
+		lighting.Ambient = Color3.fromRGB(255, 255, 255);
+		lighting.Brightness = 1;
+		lighting.FogEnd = 1e10;
+	end);
+	spawn(function(gkem)
+		local character = game:GetService("Players").LocalPlayer.Character;
+		while wait() do
+			repeat wait() until character ~= nil;
+			if not character.HumanoidRootPart:FindFirstChildWhichIsA("PointLight") then
+				local headlight = Instance.new("PointLight", character.HumanoidRootPart);
+				headlight.Brightness = 1;
+				headlight.Range = 60;
+			end;
+		end;
+	end);
+end)
+     end
+}
+
+
+
+
+
+
+
+--[[
+
+крендель
+
+]]
+
+GUI:Credit{
+	Name = "brenton tarrent",
+	Description = "15.03.25",
+	V3rm = "None",
+	Discord = "None"
+}
 
 
 
